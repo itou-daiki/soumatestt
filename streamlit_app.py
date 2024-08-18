@@ -3,11 +3,10 @@ import random
 
 st.header("物理基礎の公式")
 
-
 options = ['平均の速度','速度','等速直線運動','合成速度','相対速度','加速度','等加速度直線運動','鉛直投げ下ろし','鉛直投げ上げ','自由落下','水平投射','斜方投射','重力','フックの法則','圧力','水圧','浮力']
 
 def kousiki():
-    selection = st.selectbox("表示したい公式を選んでください:",options)
+    selection = st.selectbox("表示したい公式を選んでください:", options)
     if selection == '平均の速度':
        st.title("平均の速度")
        st.write("一定区間における単位時間あたりの変位")
@@ -41,7 +40,7 @@ def kousiki():
     elif selection == '相対速度':
        st.title("相対速度")
        st.write("動く物体Ａから観察したほかの物体Ｂの速度のこと")
-       st.latex(r'\vec{v_(ab)}=\vec{v_b}-\vec{v_a}')
+       st.latex(r'\vec{v_{ab}}=\vec{v_b}-\vec{v_a}')
        st.write(" ")
        st.write("Ｖab：Ａに対するＢの相対速度　　Ｖa：物体Ａ（観察者）の速度　　Ｖb：物体Ｂ（相手）の速度")
        st.write(" ")
@@ -146,31 +145,30 @@ def kousiki():
 def test():
    problems = [
       {"question":"$x = vt$","answer":["等速直線運動"]},
-      {"question":"$a=\\frac{Delta x}{Delta t}=\\frac{x_2-x_1}{t_2-t_1}$","answer":["加速度"]},
-      {"question":"$\\vec{v_(ab)}=\\vec{v_b}-\\vec{v_a}$","answer":["相対速度"]},
+      {"question":"$a=\\frac{\\Delta x}{\\Delta t}=\\frac{x_2-x_1}{t_2-t_1}$","answer":["加速度"]},
+      {"question":"$\\vec{v_{ab}}=\\vec{v_b}-\\vec{v_a}$","answer":["相対速度"]},
       {"question":"$v=v_o+at$","answer":["等加速度直線運動"]},
       {"question":"$x=v_ot+\\frac{1}{2}at^2$","answer":["等加速度直線運動"]},
       {"question":"$v^2-v_o^2=2ax$","answer":["等加速度直線運動"]},
-      {"question":"$F=pVg$","answer":"[浮力]"},
-      {"question":"$p=phg$","answer":"[水圧]"},
-      {"question":"$P=\\frac{F}{S}$","answer":"[圧力]"},
-      {"question":"$F=kx$","answer":"[フックの法則]"},
-      {"question":"$W=mg$","answer":"[重力]"},
-      {"question":"$v_x=v_ocosΘ$","answer":"[斜方投射]"},
-      {"question":"$x=v_otcosΘ$","answer":"[斜方投射]"},
-      {"question":"$v_y=v_osinΘ-gt$","answer":"[斜方投射]"},
-      {"question":"$y=v_otsinΘ-\\frac{1}{2}gt^2$","answer":"[斜方投射]"},
-      {"question":"$v_y^2-(v_osinΘ)^2=-2gy$","answer":"[斜方投射]"},
-      {"question":"$y=tanΘx-\\frac{g}{2v_o^2cos^2Θ}x^2$","answer":"[斜方投射]"},
-      {"question":"$\\vec{v}=\\vec{v_1}+\\vec{v_2}$","answer":"[合成速度]"},
-      {"question":"$\\bar{v}=\\frac{x_2-x_1}{t_2-t_1}=\\frac{Δx}{Δt}$","answer":"[速度][平均の速さ]"}, 
-      {"question":"$v=gt$","answer":"[自由落下]"}, 
-      {"question":"$y=\\frac{1}{2}gt^2$","answer":"[自由落下]"}, 
-      {"question":"$v^2=2gy$","answer":"[自由落下]"}, 
-      {"question":"$v=v_o+gt$","answer":"[鉛直投げ下ろし]"}, 
-      {"question":"$y=v_ot+\\frac{1}{2}gt^2$","answer":"[鉛直投げ下ろし]"},
-      {"question":"$v^2-v_o^2=2gy$","answer":"[鉛直投げ下ろし]"},
-
+      {"question":"$F=pVg$","answer":["浮力"]},
+      {"question":"$p=phg$","answer":["水圧"]},
+      {"question":"$P=\\frac{F}{S}$","answer":["圧力"]},
+      {"question":"$F=kx$","answer":["フックの法則"]},
+      {"question":"$W=mg$","answer":["重力"]},
+      {"question":"$v_x=v_o\\cos\\theta$","answer":["斜方投射"]},
+      {"question":"$x=v_ot\\cos\\theta$","answer":["斜方投射"]},
+      {"question":"$v_y=v_o\\sin\\theta-gt$","answer":["斜方投射"]},
+      {"question":"$y=v_ot\\sin\\theta-\\frac{1}{2}gt^2$","answer":["斜方投射"]},
+      {"question":"$v_y^2-(v_o\\sin\\theta)^2=-2gy$","answer":["斜方投射"]},
+      {"question":"$y=\\tan\\theta x-\\frac{g}{2v_o^2\\cos^2\\theta}x^2$","answer":["斜方投射"]},
+      {"question":"$\\vec{v}=\\vec{v_1}+\\vec{v_2}$","answer":["合成速度"]},
+      {"question":"$\\bar{v}=\\frac{x_2-x_1}{t_2-t_1}=\\frac{\\Delta x}{\\Delta t}$","answer":["速度","平均の速さ"]}, 
+      {"question":"$v=gt$","answer":["自由落下"]}, 
+      {"question":"$y=\\frac{1}{2}gt^2$","answer":["自由落下"]}, 
+      {"question":"$v^2=2gy$","answer":["自由落下"]}, 
+      {"question":"$v=v_o+gt$","answer":["鉛直投げ下ろし"]}, 
+      {"question":"$y=v_ot+\\frac{1}{2}gt^2$","answer":["鉛直投げ下ろし"]},
+      {"question":"$v^2-v_o^2=2gy$","answer":["鉛直投げ下ろし"]},
    ]
    
    if 'question_index' not in st.session_state:
@@ -198,14 +196,14 @@ def test():
    
    if st.button('答え合わせ'):
       answer = current_question["answer"]
-      st.session_state.total_questions += 1  # 総問題数をカウント
+      st.session_state.total_questions += 1
       if user_answer in answer:
          st.write("正解です。")
-         st.session_state.correct_answers += 1  # 正解数をカウント
+         st.session_state.correct_answers += 1
       else:
          st.write("不正解です。")
          st.write(f"正しい答えは: {answer}です。")
-         st.session_state.wrong_questions.append(current_question)  # 間違えた問題を記録
+         st.session_state.wrong_questions.append(current_question)
       
       if st.button("次の問題"):
          next_question()
@@ -234,4 +232,3 @@ if selection == "公式":
    kousiki()
 elif selection == "テスト":
    test()
-
