@@ -172,6 +172,7 @@ def test():
       {"question":"$v^2-v_o^2=2gy$","answer":"[鉛直投げ下ろし]"},
 
    ]
+   
    if 'question_index' not in st.session_state:
       st.session_state.question_index = random.randint(0, len(problems) - 1)
       st.session_state.total_questions = 0
@@ -197,14 +198,14 @@ def test():
    
    if st.button('答え合わせ'):
       answer = current_question["answer"]
-      st.session_state.total_questions += 1
+      st.session_state.total_questions += 1  # 総問題数をカウント
       if user_answer in answer:
          st.write("正解です。")
-         st.session_state.correct_answers += 1
+         st.session_state.correct_answers += 1  # 正解数をカウント
       else:
          st.write("不正解です。")
          st.write(f"正しい答えは: {answer}です。")
-         st.session_state.wrong_questions.append(current_question)
+         st.session_state.wrong_questions.append(current_question)  # 間違えた問題を記録
       
       if st.button("次の問題"):
          next_question()
