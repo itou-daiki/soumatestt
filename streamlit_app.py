@@ -171,7 +171,9 @@ def test():
       {"question":"v^2-v_o^2=2gy","answer":["鉛直投げ下ろし"]},
    ]
    
-   if 'question_index' not in st.session_state:
+   # セッション状態の初期化
+   if 'initialized' not in st.session_state:
+      st.session_state.initialized = True
       st.session_state.question_index = random.randint(0, len(problems) - 1)
       st.session_state.total_questions = 0
       st.session_state.correct_answers = 0
