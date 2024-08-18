@@ -214,7 +214,7 @@ def test():
    with col2:
       if st.button("次の問題"):
          next_question()
-         st.experimental_rerun()
+         st.rerun()  # ここを変更
    
    # 成績表示
    st.sidebar.subheader("成績")
