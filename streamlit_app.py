@@ -173,14 +173,14 @@ def test():
 
    ]
    if 'question_index' not in st.session_state:
-      st.session_state.question_index = random.randint(0,len(problems) - 1)
-      st.session_state.user_answer = ""
-      st.session_state.correct = None
+      st.session_state.question_index = random.randint(0, len(problems) - 1)
+      st.session_state.total_questions = 0
+      st.session_state.correct_answers = 0
+      st.session_state.wrong_questions = []
+   
    def next_question():
-      st.session_state.question_index = random.randint(0,len(problems) - 1)
+      st.session_state.question_index = random.randint(0, len(problems) - 1)
       st.session_state.user_answer = ""
-      st.session_state.correct = None
-
    
    st.title("テスト")
 
@@ -188,25 +188,42 @@ def test():
 
    st.subheader("問題")
    st.subheader("次の公式は何を求める公式か？")
-   st.subheader(current_question["question"])
+   st.latex(current_question["question"])
 
    st.write(" ")
    st.write(" ")
 
-   user_answer = st.selectbox("解答を選択",options)   
+   user_answer = st.selectbox("解答を選択", options, key="user_answer")
+   
    if st.button('答え合わせ'):
       answer = current_question["answer"]
+      st.session_state.total_questions += 1
       if user_answer in answer:
          st.write("正解です。")
-         if st.button("次の問題"):
-            next_question()
-            st.experimental_rerun()
+         st.session_state.correct_answers += 1
       else:
          st.write("不正解です。")
          st.write(f"正しい答えは: {answer}です。")
-         if st.button("次の問題"):
-            next_question()
-            st.experimental_rerun()
+         st.session_state.wrong_questions.append(current_question)
+      
+      if st.button("次の問題"):
+         next_question()
+         st.experimental_rerun()
+   
+   # 成績表示
+   st.sidebar.subheader("成績")
+   st.sidebar.write(f"総問題数: {st.session_state.total_questions}")
+   st.sidebar.write(f"正解数: {st.session_state.correct_answers}")
+   if st.session_state.total_questions > 0:
+      accuracy = (st.session_state.correct_answers / st.session_state.total_questions) * 100
+      st.sidebar.write(f"正答率: {accuracy:.2f}%")
+   
+   # 間違えた問題の表示
+   if st.sidebar.checkbox("間違えた問題を表示"):
+      st.sidebar.subheader("間違えた問題")
+      for q in st.session_state.wrong_questions:
+         st.sidebar.latex(q["question"])
+         st.sidebar.write(f"正解: {q['answer']}")
 
 selection = st.sidebar.selectbox(
    "メニュー",
