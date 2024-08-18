@@ -180,7 +180,6 @@ def test():
    
    def next_question():
       st.session_state.question_index = random.randint(0, len(problems) - 1)
-      st.session_state.user_answer = ""
       st.session_state.answered = False
    
    st.title("テスト")
@@ -194,13 +193,12 @@ def test():
    st.write(" ")
    st.write(" ")
 
-   user_answer = st.selectbox("解答を選択", options, key="user_answer")
+   user_answer = st.selectbox("解答を選択", options, key="user_answer_select")
    
    col1, col2 = st.columns(2)
    
    with col1:
       if st.button('答え合わせ'):
-         st.session_state.answered = True
          answer = current_question["answer"]
          if not st.session_state.answered:
             st.session_state.total_questions += 1
@@ -211,6 +209,7 @@ def test():
                st.write("不正解です。")
                st.write(f"正しい答えは: {answer}です。")
                st.session_state.wrong_questions.append(current_question)
+            st.session_state.answered = True
    
    with col2:
       if st.button("次の問題"):
