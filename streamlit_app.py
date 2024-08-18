@@ -176,10 +176,12 @@ def test():
       st.session_state.total_questions = 0
       st.session_state.correct_answers = 0
       st.session_state.wrong_questions = []
+      st.session_state.answered = False
    
    def next_question():
       st.session_state.question_index = random.randint(0, len(problems) - 1)
       st.session_state.user_answer = ""
+      st.session_state.answered = False
    
    st.title("テスト")
 
@@ -194,17 +196,23 @@ def test():
 
    user_answer = st.selectbox("解答を選択", options, key="user_answer")
    
-   if st.button('答え合わせ'):
-      answer = current_question["answer"]
-      st.session_state.total_questions += 1
-      if user_answer in answer:
-         st.write("正解です。")
-         st.session_state.correct_answers += 1
-      else:
-         st.write("不正解です。")
-         st.write(f"正しい答えは: {answer}です。")
-         st.session_state.wrong_questions.append(current_question)
-      
+   col1, col2 = st.columns(2)
+   
+   with col1:
+      if st.button('答え合わせ'):
+         st.session_state.answered = True
+         answer = current_question["answer"]
+         if not st.session_state.answered:
+            st.session_state.total_questions += 1
+            if user_answer in answer:
+               st.write("正解です。")
+               st.session_state.correct_answers += 1
+            else:
+               st.write("不正解です。")
+               st.write(f"正しい答えは: {answer}です。")
+               st.session_state.wrong_questions.append(current_question)
+   
+   with col2:
       if st.button("次の問題"):
          next_question()
          st.experimental_rerun()
