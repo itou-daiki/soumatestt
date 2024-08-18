@@ -177,10 +177,12 @@ def test():
       st.session_state.correct_answers = 0
       st.session_state.wrong_questions = []
       st.session_state.answered = False
+      st.session_state.answer_result = ""
    
    def next_question():
       st.session_state.question_index = random.randint(0, len(problems) - 1)
       st.session_state.answered = False
+      st.session_state.answer_result = ""
    
    st.title("テスト")
 
@@ -203,18 +205,21 @@ def test():
          if not st.session_state.answered:
             st.session_state.total_questions += 1
             if user_answer in answer:
-               st.write("正解です。")
+               st.session_state.answer_result = "正解です。"
                st.session_state.correct_answers += 1
             else:
-               st.write("不正解です。")
-               st.write(f"正しい答えは: {answer}です。")
+               st.session_state.answer_result = f"不正解です。正しい答えは: {answer}です。"
                st.session_state.wrong_questions.append(current_question)
             st.session_state.answered = True
+   
+   # 答え合わせの結果を表示
+   if st.session_state.answer_result:
+      st.write(st.session_state.answer_result)
    
    with col2:
       if st.button("次の問題"):
          next_question()
-         st.rerun()  # ここを変更
+         st.rerun()
    
    # 成績表示
    st.sidebar.subheader("成績")
@@ -230,6 +235,7 @@ def test():
       for q in st.session_state.wrong_questions:
          st.sidebar.latex(q["question"])
          st.sidebar.write(f"正解: {q['answer']}")
+
 
 selection = st.sidebar.selectbox(
    "メニュー",
